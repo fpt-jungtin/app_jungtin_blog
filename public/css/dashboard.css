@@ -1,0 +1,30 @@
+#sidebar-brand__img {
+	width: 155px;
+}
+
+#sidebar-brand__img-mini {
+	display: none;
+	width: 37px;
+}
+
+/* Custom Toggle Brand */
+.toggled #sidebar-brand__img-mini {
+	display: block;
+}
+
+.collapse-icon {
+	margin: 0 5px 0 0;
+	font-size: 14px;
+}
+
+.collapse-title {
+	font-weight: 700;
+}
+
+#error__container {
+	height: 79vh;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
