@@ -1,5 +1,6 @@
 const DASHBOARD = "/dashboard/";
 const HOME = "/";
+const BLOG = "/blog/";
 
 const COURSE_LIST = "/dashboard/courses";
 const COURSE_CREATE_FORM = "/dashboard/courses/create";
@@ -10,6 +11,7 @@ const COURSE_DELETE = "/dashboard/courses/delete";
 module.exports = {
 	DASHBOARD,
 	HOME,
+	BLOG,
 
 	COURSE_LIST,
 	COURSE_CREATE_FORM,

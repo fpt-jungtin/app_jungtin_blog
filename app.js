@@ -19,7 +19,8 @@ const db = require("./config/database");
 const { errHandlerMiddleware } = require("./error.custom");
 
 /* Route */
-const homeRoute = require("./routes/_/home.route");
+const homeRoute = require("./routes/home.route");
+const dashboardRoute = require("./routes/dashboard.route");
 
 const app = express();
 require("dotenv/config");
@@ -61,12 +62,7 @@ app.use((req, res, next) => {
 
 /* Route */
 app.use(homeRoute);
-app.get("/login", (req, res) => {
-	res.render("login", { layout: false });
-});
-app.get("/register", (req, res) => {
-	res.render("register", { layout: false });
-});
+app.use("/dashboard", dashboardRoute);
 
 /* 
 	Error Handling
@@ -92,3 +88,9 @@ db.sync({
 	.catch((err) => {
 		console.error(err);
 	});
+
+/* 
+	NOTE TRONG QUÁ TRÌNH PHÁT TRIỂN
+	1. Những src: url(../fonts/open-iconic/open-iconic.eot) ở file CSS cần được đổi thành /fonts/... vì cái folder fonts mình để ngay /public
+	2. Những URL về css, js, images trong view phải bắt đầu bằng / (nếu không thì nó sẽ là relative) mà từ đó sinh ra lỗi
+*/
