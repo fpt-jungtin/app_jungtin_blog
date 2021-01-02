@@ -13,7 +13,6 @@ const express = require("express");
 
 /* Imports */
 const URL = require("./helpers/urls");
-const db = require("./config/database");
 
 /* Error */
 const { errHandlerMiddleware } = require("./error.custom");
@@ -21,6 +20,7 @@ const { errHandlerMiddleware } = require("./error.custom");
 /* Route */
 const homeRoute = require("./routes/home.route");
 const dashboardRoute = require("./routes/dashboard.route");
+const blogRoute = require("./routes/blog.route");
 
 const app = express();
 require("dotenv/config");
@@ -63,6 +63,7 @@ app.use((req, res, next) => {
 /* Route */
 app.use(homeRoute);
 app.use("/dashboard", dashboardRoute);
+app.use("/blog", blogRoute);
 
 /* 
 	Error Handling
@@ -74,20 +75,9 @@ app.use(errHandlerMiddleware);
 const PORT = process.env.PORT || 3000;
 reload(app);
 
-/* Database - ORM */
-db.sync({
-	// force: true,
-})
-	.then((rs) => {
-		console.log("Đã kết nối thành công với DB");
-
-		app.listen(PORT, () => {
-			console.log(`Server is running on PORT: ${PORT}`);
-		});
-	})
-	.catch((err) => {
-		console.error(err);
-	});
+app.listen(PORT, () => {
+	console.log(`Server is running on PORT: ${PORT}`);
+});
 
 /* 
 	NOTE TRONG QUÁ TRÌNH PHÁT TRIỂN

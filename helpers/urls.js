@@ -2,20 +2,20 @@ const DASHBOARD = "/dashboard/";
 const HOME = "/";
 const BLOG = "/blog/";
 
-const COURSE_LIST = "/dashboard/courses";
-const COURSE_CREATE_FORM = "/dashboard/courses/create";
-const COURSE_EDIT_FORM = "/dashboard/courses/edit";
-const COURSE_PROCESS_FORM = "/dashboard/courses/save";
-const COURSE_DELETE = "/dashboard/courses/delete";
+const CATEGORY = "/dashboard/categories";
+const CATEGORY_CREATE = "/dashboard/categories/create";
+const CATEGORY_UPDATE = "/dashboard/categories/update";
+const CATEGORY_DELETE = "/dashboard/categories/delete";
+const CATEGORY_PROCESS = "/dashboard/categories/process";
 
 module.exports = {
 	DASHBOARD,
 	HOME,
 	BLOG,
 
-	COURSE_LIST,
-	COURSE_CREATE_FORM,
-	COURSE_EDIT_FORM,
-	COURSE_PROCESS_FORM,
-	COURSE_DELETE,
+	CATEGORY,
+	CATEGORY_CREATE,
+	CATEGORY_UPDATE,
+	CATEGORY_DELETE,
+	CATEGORY_PROCESS,
 };
