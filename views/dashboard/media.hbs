@@ -1,0 +1,45 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <input type="hidden"
+           name="_csrf"
+           value="{{csrfToken}}">
+    <h1 class="h3 mb-4 text-gray-800">Media</h1>
+    <div class="form-group d-flex">
+        <div>
+            <input type="checkbox"
+                   id="media__item-cbo-select-all">
+            <label for="media__item-cbo-select-all">Select All Images</label>
+        </div>
+        <button class="ml-auto btn btn-outline-danger"
+                id="media__item-btn-delete-all">Delete Selected</button>
+    </div>
+    <div id="media__container">
+        {{#each filenames as |filename|}}
+        <div class="media__item">
+            <a href="{{@root.URL.UPLOAD_FOLDER}}/{{filename}}"
+               data-fancybox="gallery"
+               data-caption="">
+                <img src="{{@root.URL.UPLOAD_FOLDER}}/{{filename}}"
+                     class="media__item-img" />
+            </a>
+
+            <div class="media__item-overlay">
+                <input type="checkbox"
+                       class="media__item-cbo"
+                       data-filename="{{filename}}">
+                <i class="fas fa-trash-alt"
+                   data-filename="{{filename}}"></i>
+            </div>
+        </div>
+
+        {{/each}}
+    </div>
+</div>
+<!-- /.container-fluid -->
+
+<script src="/js/main/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+<script src="{{URL.MEDIA_JS}}">
+
+</script>

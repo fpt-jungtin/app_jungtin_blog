@@ -14,25 +14,27 @@
             <div class="col-lg-8">
                 <div class="row">
                     <div class="col-md-12">
+                        {{#each posts as |post|}}
                         <div class="blog-entry ftco-animate d-md-flex">
-                            <a href="single.html"
+                            <a href="{{@root.URL.BLOG_POST}}/{{post.id}}"
                                class="img img-2"
-                               style="background-image: url(/images/image_1.jpg);"></a>
+                               style="background-image: url({{post.thumbnail}});"></a>
                             <div class="text text-2 p-4">
-                                <h3 class="mb-2"><a href="single.html">The Photography Technique</a></h3>
+                                <h3 class="mb-2"><a href="{{@root.URL.BLOG_POST}}/{{post.id}}">{{post.title}}</a>
+                                </h3>
                                 <div class="meta-wrap">
                                     <p class="meta">
-                                        <span>Dec 14, 2018</span>
-                                        <span><a href="single.html">Photography</a></span>
+                                        <span>{{createdAt}}</span>
+                                        <span><a href="single.html">{{post.Category.title}}</a></span>
                                         <span>5 Comment</span>
                                     </p>
                                 </div>
-                                <p class="mb-4">A small river named Duden flows by their place and supplies it with the
-                                    necessary regelialia.</p>
-                                <p><a href="#"
+                                <p class="mb-4">{{post.description}}</p>
+                                <p><a href="{{@root.URL.BLOG_POST}}/{{post.id}}"
                                        class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a></p>
                             </div>
                         </div> {{!-- END Blog Item --}}
+                        {{/each}}
                     </div>
                 </div><!-- END-->
                 <div class="row">

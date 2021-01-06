@@ -2,66 +2,124 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Player Form</h1>
-    <form>
-        <div class="form-row">
-            <div class="col-md-6 mb-3">
-                <label for="player_name">Name</label>
-                <input type="text"
-                       class="form-control is-invalid"
-                       id="player_name"
-                       required>
-                <div class="invalid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="player_fb_url">Facebook URL</label>
-                <input type="text"
-                       class="form-control is-valid"
-                       id="player_fb_url"
-                       required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-        </div>
+    <h1 class="h3 mb-4 text-gray-800">Post Form</h1>
+    <form action="{{URL.POST_PROCESS}}"
+          method="POST"
+          id="post-form">
+        <input type="hidden"
+               name="_csrf"
+               value="{{csrfToken}}">
+        <input type="hidden"
+               name="id"
+               value="{{id}}">
 
         <div class="form-group">
-            <label for="player_bios">Bios</label>
+            <label>Title</label>
             <input type="text"
-                   class="form-control is-valid"
-                   id="player_bios"
-                   disabled>
-            <div class="valid-feedback">
-                Looks good!
+                   name="title"
+                   value="{{title}}"
+                   class="form-control {{#if errors.title}}is-invalid{{/if}}">
+            {{#if errors.title}}
+            <div class="invalid-feedback">
+                {{errors.title}}
             </div>
+            {{/if}}
         </div>
 
         <div class="form-group">
-            <label for="player_age">Age</label>
-            <input type="number"
-                   class="form-control is-valid"
-                   id="player_age"
-                   required>
-            <div class="valid-feedback">
-                Looks good!
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="player_about">About</label>
-            <textarea class="form-control is-valid"
-                      style="resize: none"
+            <label>Description</label>
+            <textarea type="text"
+                      name="description"
                       rows="3"
-                      id="player_about"></textarea>
-            <div class="valid-feedback">
-                Looks good!
+                      class="form-control {{#if errors.description}}is-invalid{{/if}}">{{description}}</textarea>
+            {{#if errors.description}}
+            <div class="invalid-feedback">
+                {{errors.description}}
             </div>
+            {{/if}}
         </div>
 
-        <button class="btn btn-primary"
-                type="submit">Submit form</button>
+        <div class="form-group">
+            <label>Thumbnail</label>
+            <input type="text"
+                   name="thumbnail"
+                   value="{{thumbnail}}"
+                   class="form-control {{#if errors.thumbnail}}is-invalid{{/if}}">
+            {{#if errors.thumbnail}}
+            <div class="invalid-feedback">
+                {{errors.thumbnail}}
+            </div>
+            {{/if}}
+        </div>
+
+
+
+        <div class="form-group">
+            <label>Content</label>
+            <input type="hidden"
+                   name="content"
+                   value="{{content}}"
+                   class="form-control {{#if errors.content}}is-invalid{{/if}}">
+            <div id="editorjs"></div>
+            {{#if errors.content}}
+            <div class="invalid-feedback">
+                {{errors.content}}
+            </div>
+            {{/if}}
+        </div>
+
+        <div class="form-group">
+            <label>Tags</label>
+            <input type="text"
+                   name="tags"
+                   value="{{tags}}"
+                   class="form-control {{#if errors.tags}}is-invalid{{/if}}">
+            <span class="text-muted">*separate by using comma(,)</span>
+            {{#if errors.tags}}
+            <div class="invalid-feedback">
+                {{errors.tags}}
+            </div>
+            {{/if}}
+        </div>
+
+        <div class="form-group">
+            <label>Category</label>
+            <select name="category-id"
+                    class="form-control">
+                <option value=""></option>
+                {{#each categories as |cate|}}
+                <option value="{{cate.id}}"
+                        {{#eq cate.id @root.categoryId}}selected="selected"
+                        {{/eq}}>
+                    {{cate.title}}
+                </option>
+                {{/each}}
+            </select>
+        </div>
+
+        <button class="btn btn-success"
+                type="button"
+                id="post-form__submit-btn">Submit</button>
     </form>
 </div>
 <!-- /.container-fluid -->
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/header"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter"></script>
+<script src="https://cdn.jsdelivr.net/npm/editorjs-alert"></script>
+{{!-- <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/editorjs-paragraph-with-alignment"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/list"></script>
+{{!-- <script src="https://cdn.jsdelivr.net/npm/@editorjs/link"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/marker"></script>
+{{!-- <script src="https://cdn.jsdelivr.net/npm/@editorjs/code"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code"></script>
+<script src="https://cdn.jsdelivr.net/gh/paraswaykole/editor-js-code@latest/dist/bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/image"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/embed"></script>
+<script src="/js/dashboard/codebox.min.js"></script>
+{{!-- <script src="/js/dashboard/codemirror.js"></script> --}}
+<script src="/js/dashboard/undo.js"></script>
+
+<script src="{{URL.EDITOR_CONFIG_JS}}"></script>
+<script src="{{URL.POST_JS}}"></script>

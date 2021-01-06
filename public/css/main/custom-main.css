@@ -1,0 +1,31 @@
+.img {
+	display: block;
+	margin: auto;
+}
+
+section.ftco-section.ftco-bread {
+	/* background: url(https://kenh14cdn.com/thumb_w/620/203336854389633024/2021/1/6/1336258223045794676432817842437523141769565n-1609934428052735942038-16099344552801731570850.jpg); */
+	background-repeat: no-repeat !important;
+	background-position: center !important;
+	background-size: cover !important;
+	position: relative !important;
+}
+
+section.ftco-section.ftco-bread:after {
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 0;
+}
+
+.ftco-bread .bread {
+	color: white !important;
+}
+
+.col-md-8.ftco-animate.fadeInUp.ftco-animated {
+	z-index: 1 !important;
+}

@@ -2,7 +2,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">List of Players</h1>
+    <h1 class="h3 mb-4 text-gray-800">List of Posts</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -15,26 +15,48 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Name</th>
-                            <th>Facebook</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Category</th>
                             <th>Create Date</th>
+                            <th colspan="2"><a href="{{URL.POST_CREATE}}"
+                                   class="btn btn-success d-block">Create new post</a></th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>Id</th>
-                            <th>Name</th>
-                            <th>Facebook</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Category</th>
                             <th>Create Date</th>
+                            <th colspan="2"></th>
                         </tr>
                     </tfoot>
                     <tbody>
+                        {{#each posts as |post|}}
                         <tr>
-                            <td>1</td>
-                            <td><a href="javascript:void(0)">Trung Thinh</a></td>
-                            <td><a href="javascript:void(0)">Link</a></td>
-                            <td>2011/04/25</td>
+                            <td>{{post.id}}</td>
+                            <td><a href="{{@root.URL.BLOG_POST}}/{{post.id}}">{{post.title}}</a></td>
+                            <td>{{post.description}}</td>
+                            <td>
+                                <a href="{{@root.URL.CATEGORY}}/{{post.Category.id}}">{{post.Category.title}}</a>
+                            </td>
+                            <td>{{post.createdAt}}</td>
+                            <td><a href="{{@root.URL.POST_UPDATE}}/{{post.id}}"
+                                   class="btn btn-warning">Update</a></td>
+                            <td>
+                                <form action="{{@root.URL.POST_DELETE}}/{{post.id}}"
+                                      method="POST">
+                                    <input type="hidden"
+                                           name="_csrf"
+                                           value="{{@root.csrfToken}}">
+                                    <button class="btn btn-danger"
+                                            type="submit">Delete</button>
+                                </form>
+                            </td>
                         </tr>
+                        {{/each}}
                     </tbody>
                 </table>
             </div>

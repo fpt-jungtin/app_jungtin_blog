@@ -5,6 +5,8 @@ global.import = function (path) {
 /* Package */
 const path = require("path");
 const csrf = require("csurf");
+const camelcaseKeys = require("camelcase-keys");
+const omitEmpty = require("omit-empty");
 const reload = require("reload");
 const handlebars = require("express-handlebars");
 const flash = require("connect-flash");
@@ -21,6 +23,7 @@ const { errHandlerMiddleware } = require("./error.custom");
 const homeRoute = require("./routes/home.route");
 const dashboardRoute = require("./routes/dashboard.route");
 const blogRoute = require("./routes/blog.route");
+const uploadRoute = require("./routes/upload.route");
 
 const app = express();
 require("dotenv/config");
@@ -45,6 +48,7 @@ app.set("view engine", "hbs");
 
 /* Middleware */
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(
 	session({
 		secret: process.env.SESSION_SECRET,
@@ -54,6 +58,27 @@ app.use(
 );
 app.use(csrf()); // phải đặt sau cookie-parser nếu có sử dụng
 app.use(flash()); // phải đặt sau session
+
+const camelcase = () => {
+	return function (req, res, next) {
+		req.body = camelcaseKeys(req.body, { deep: true });
+		req.params = camelcaseKeys(req.params);
+		req.query = camelcaseKeys(req.query);
+		next();
+	};
+};
+app.use(camelcase());
+
+const removeEmptyProperties = () => {
+	return function (req, res, next) {
+		req.body = omitEmpty(req.body);
+		req.params = omitEmpty(req.params);
+		req.query = omitEmpty(req.query);
+		next();
+	};
+};
+app.use(removeEmptyProperties());
+
 app.use((req, res, next) => {
 	res.locals.URL = URL;
 	res.locals.csrfToken = req.csrfToken();
@@ -62,6 +87,7 @@ app.use((req, res, next) => {
 
 /* Route */
 app.use(homeRoute);
+app.use(uploadRoute);
 app.use("/dashboard", dashboardRoute);
 app.use("/blog", blogRoute);
 
